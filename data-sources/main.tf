@@ -1,0 +1,41 @@
+provider "aws" {
+	region = "us-west-2"
+}
+
+# resource "aws_instance" "web" {
+# 	ami           = data.aws_ami.ubuntu.id
+# 	instance_type = "t2.micro"
+# }
+
+data "aws_ami" "ubuntu" {
+	most_recent = true
+	owners      = ["self"]
+
+	filter {
+		name = "name"
+		values = ["tuts-ubuntu"]
+	}
+}
+
+data "aws_vpc" "foo" {
+	default = true
+}
+
+data "aws_vpc" "main" {
+	filter {
+		name  = "tag:Name"
+		values = ["will-vpc"]
+	}
+}
+
+output "vpc" {
+	value = data.aws_vpc.foo
+}
+
+output "ami" {
+	value = data.aws_ami.ubuntu.virtualization_type
+	description = "Hello ami stuff"
+	# Wont show in the cli
+	# Still visible in state data
+	sensitive   = true
+}
