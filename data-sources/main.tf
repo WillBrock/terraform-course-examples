@@ -31,11 +31,3 @@ data "aws_vpc" "main" {
 output "vpc" {
 	value = data.aws_vpc.foo
 }
-
-output "ami" {
-	value = data.aws_ami.ubuntu.virtualization_type
-	description = "Hello ami stuff"
-	# Wont show in the cli
-	# Still visible in state data
-	sensitive   = true
-}
