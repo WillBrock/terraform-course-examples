@@ -1,4 +1,11 @@
 terraform {
+	required_providers {
+		aws = {
+			source  = "hashicorp/aws"
+			version = "~> 3.74"
+		}
+	}
+
 	backend "s3" {
 		bucket = "tuts-state"
 		key    = "foo/terraform.tfstate"
